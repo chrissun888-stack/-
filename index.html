@@ -1,474 +1,203 @@
 <!doctype html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>樣書 / 業務快速紀錄</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>樣書 / 業務快速紀錄</title>
 
 <style>
-  :root{
-    --bg:#F5F8FF;
-    --bg2:#EEF3FF;
-    --card: rgba(255,255,255,.75);
-    --border: rgba(20,40,120,.10);
-    --text:#1F2A44;
-    --muted:#6B7AA8;
-    --accent:#4F7CFF;
-    --accent2:#7AA7FF;
-    --good:#2FBF71;
-    --bad:#E5533D;
-    --shadow: 0 18px 40px rgba(31,42,68,.12);
-    --radius: 16px;
-  }
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+  background: linear-gradient(180deg,#F5F8FF,#EEF3FF);
+  color:#1F2A44;
+}
+.wrap{max-width:960px;margin:auto;padding:20px;}
+.card{
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 18px 40px rgba(0,0,0,.1);
+  padding:20px;
+}
+.grid{display:grid;grid-template-columns:1fr;gap:14px;}
+@media(min-width:760px){.grid{grid-template-columns:1fr 1fr}.span2{grid-column:1/-1}}
+label{font-size:13px;color:#6B7AA8;margin-bottom:6px;display:block}
+input,select,textarea{
+  width:100%;padding:12px;border-radius:12px;border:1px solid #D6DEFF;font-size:15px
+}
+textarea{min-height:110px}
+button{
+  padding:12px;border-radius:12px;border:none;font-size:15px;cursor:pointer
+}
+.primary{background:#4F7CFF;color:#fff}
+.actions{display:flex;gap:12px;margin-top:18px}
+.status{margin-top:12px;font-size:13px;color:#6B7AA8}
 
-  *{ box-sizing:border-box; }
-
-  body{
-    margin:0;
-    color:var(--text);
-    font-family: ui-sans-serif, system-ui, -apple-system, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
-    background:
-      radial-gradient(1200px 600px at 20% 10%, #E6EEFF, transparent 60%),
-      radial-gradient(1000px 520px at 80% 20%, #EAF1FF, transparent 55%),
-      linear-gradient(180deg, var(--bg), var(--bg2));
-    min-height:100vh;
-  }
-
-  .wrap{ max-width: 980px; margin: 0 auto; padding: 20px; }
-
-  .top{
-    display:flex; align-items:center; justify-content:space-between;
-    margin-bottom:16px;
-  }
-
-  .brand h1{
-    margin:0;
-    font-size:20px;
-    font-weight:700;
-    letter-spacing:.3px;
-  }
-
-  .brand p{
-    margin:4px 0 0;
-    font-size:13px;
-    color:var(--muted);
-  }
-
-  .card{
-    background: var(--card);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-  }
-
-  .cardHeader{
-    padding:14px 18px;
-    border-bottom: 1px solid var(--border);
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-  }
-
-  .chip{
-    font-size:12px;
-    padding:6px 12px;
-    background: rgba(79,124,255,.10);
-    color: #2F4B9A;
-    border-radius: 999px;
-  }
-
-  .content{ padding: 18px; }
-
-  .grid{
-    display:grid;
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
-
-  @media (min-width: 760px){
-    .grid{ grid-template-columns: 1fr 1fr; }
-    .span2{ grid-column: 1 / -1; }
-  }
-
-  label{
-    display:block;
-    font-size:13px;
-    color: var(--muted);
-    margin-bottom:6px;
-  }
-
-  input, select, textarea{
-    width:100%;
-    padding: 12px 14px;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    background: #FFFFFF;
-    color: var(--text);
-    font-size:15px;
-    transition: all .15s ease;
-  }
-
-  input::placeholder, textarea::placeholder{
-    color:#9AA7CC;
-  }
-
-  input:focus, select:focus, textarea:focus{
-    outline:none;
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(79,124,255,.15);
-  }
-
-  textarea{
-    min-height:110px;
-    resize:vertical;
-  }
-
-  select[multiple]{
-    min-height:150px;
-  }
-
-  .help{
-    margin-top:6px;
-    font-size:12px;
-    color:#7E8AB8;
-  }
-
-  .actions{
-    display:flex;
-    gap:12px;
-    margin-top:18px;
-  }
-
-  button{
-    flex:1;
-    padding:12px 16px;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    background:#FFFFFF;
-    font-size:15px;
-    cursor:pointer;
-    transition: all .15s ease;
-  }
-
-  button:hover{
-    transform: translateY(-1px);
-    box-shadow: 0 8px 18px rgba(31,42,68,.12);
-  }
-
-  .primary{
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    color:#FFFFFF;
-    border:none;
-  }
-
-  .status{
-    margin-top:12px;
-    font-size:13px;
-    color: var(--muted);
-  }
-
-  .ok{ color: var(--good); }
-  .err{ color: var(--bad); }
-
-  .footerHint{
-    margin-top:10px;
-    font-size:12px;
-    color:#7E8AB8;
-  }
+/* tags */
+.tagWrap{display:flex;flex-wrap:wrap;gap:8px}
+.tag{
+  padding:8px 12px;
+  border-radius:999px;
+  background:#EEF3FF;
+  border:1px solid #C9D6FF;
+  cursor:pointer;
+}
+.tag.active{background:#4F7CFF;color:#fff;border-color:#4F7CFF}
+.tag.other{border-style:dashed}
 </style>
-
 </head>
 
 <body>
-  <div class="wrap">
-    <div class="top">
-      <div class="brand">
-        <h1>樣書 / 業務快速紀錄</h1>
-        <p>外出快速輸入，送出即寫入試算表</p>
-      </div>
-      <div class="chip">Tech Mode</div>
-    </div>
+<div class="wrap">
+<h2>樣書 / 業務快速紀錄</h2>
 
-    <div class="card">
-      <div class="cardHeader">
-        <div class="chip">所有欄位皆為非必填</div>
-        <div class="chip">教材可複選</div>
-      </div>
+<div class="card">
+<div class="grid">
 
-      <div class="content">
-        <div class="grid">
-          <div>
-            <label>客戶名稱</label>
-            <input id="clientName" placeholder="例如：XX 兒童美語" />
-          </div>
+<div>
+<label>客戶名稱</label>
+<input id="clientName">
+</div>
 
-          <div>
-            <label>聯絡人</label>
-            <input id="contactName" placeholder="例如：王主任" />
-          </div>
+<div>
+<label>聯絡人</label>
+<input id="contactName">
+</div>
 
-          <div>
-            <label>職稱</label>
-            <select id="title">
-              <option value="">—</option>
-              <option>主任</option>
-              <option>老師</option>
-              <option>負責人/老闆</option>
-              <option>行政</option>
-              <option>採購</option>
-            </select>
-          </div>
+<div>
+<label>職稱</label>
+<select id="title">
+<option value="">—</option>
+<option>主任</option>
+<option>老師</option>
+<option>負責人/老闆</option>
+<option>行政</option>
+<option>採購</option>
+</select>
+</div>
 
-          <div>
-            <label>電話</label>
-            <input id="phone" inputmode="tel" placeholder="可留空" />
-          </div>
+<div>
+<label>電話</label>
+<input id="phone">
+</div>
 
-          <div>
-            <label>區域</label>
-            <select id="area">
-              <option value="">—</option>
-              <option>台北市</option>
-              <option>新北市</option>
-              <option>基隆</option>
-              <option>桃園</option>
-              <option>新竹</option>
-              <option>其他</option>
-            </select>
-          </div>
+<div>
+<label>區域</label>
+<select id="area">
+<option value="">—</option>
+<option>北區</option>
+<option>中區</option>
+<option>南區</option>
+<option>全區</option>
+</select>
+</div>
 
-          <div>
-            <label>級數</label>
-            <select id="level">
-              <option value="">—</option>
-              <option>Starter</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
-            </select>
-          </div>
+<div>
+<label>紀錄人</label>
+<select id="user">
+<option value="">—</option>
+<option>全區-Ken</option>
+<option>北區-Chris</option>
+<option>中區-Tania</option>
+<option>南區-Sonia</option>
+</select>
+</div>
 
-          <div class="span2">
-            <label>教材名稱（可複選）</label>
-            <select id="product" multiple onchange="toggleOtherProduct()">
-              <!-- 你原本的完整清單請貼在這裡（我保留接口） -->
-              <option>1200 Key English Words</option>
-              <option>4500 Key English Words</option>
-              <option>7200 Key English Words</option>
-              <option>21st Reading</option>
-              <option>ALEKS</option>
-              <option>Ahead with Starters / Movers / Flyers / FCE</option>
-              <option>American Tiger</option>
-              <option>Benchmark Advance</option>
-              <option>Benchmark English</option>
-              <option>Business Partner</option>
-              <option>Business Survival</option>
-              <option>Collins FF</option>
-              <option>Early Listeners</option>
-              <option>Early Writers</option>
-              <option>Easy First Reading</option>
-              <option>ELI Board Games: Around the City / Play for Planet</option>
-              <option>ELI Liberty Step Reader</option>
-              <option>Focus on Grammar</option>
-              <option>Look and See</option>
-              <option>My Phonics</option>
-              <option>Pearson English Readers</option>
-              <option>SRA Reading Laboratory</option>
-              <option>The Complete GEPT Practice Test</option>
-              <option>Top Kids</option>
+<div class="span2">
+<label>教材名稱（自動同步）</label>
+<div id="productTags" class="tagWrap"></div>
+</div>
 
-              <option value="__other__">其他（自行輸入）</option>
-            </select>
-            <div class="help">電腦：按住 Ctrl/Command 可複選；手機：可逐項點選。</div>
-          </div>
+<div id="otherWrap" class="span2" style="display:none">
+<label>其他教材</label>
+<input id="otherProduct">
+</div>
 
-          <div id="otherProductWrap" class="span2" style="display:none;">
-            <label>其他教材名稱（可逗號分隔多筆）</label>
-            <input id="otherProduct" placeholder="例如：Xreading, Writing Time" />
-          </div>
+<div class="span2">
+<label>備註</label>
+<textarea id="note"></textarea>
+</div>
 
-          <div>
-            <label>樣書數量</label>
-            <input id="qty" type="number" min="0" placeholder="例如：1" />
-          </div>
+</div>
 
-          <div>
-            <label>樣書狀態</label>
-            <select id="sampleStatus">
-              <option value="">—</option>
-              <option>借出</option>
-              <option>回收</option>
-              <option>轉購</option>
-              <option>作廢</option>
-            </select>
-          </div>
+<div class="actions">
+<button class="primary" onclick="save()">儲存</button>
+<button onclick="resetForm()">清空</button>
+</div>
 
-          <div>
-            <label>目前進度</label>
-            <select id="salesStage">
-              <option value="">—</option>
-              <option>剛提供</option>
-              <option>試教中</option>
-              <option>評估中</option>
-              <option>不考慮</option>
-              <option>已成交</option>
-            </select>
-          </div>
-
-          <div>
-            <label>預計回覆日</label>
-            <input id="nextFollowUp" type="date" />
-          </div>
-
-          <div>
-            <label>是否成交</label>
-            <select id="dealStatus">
-              <option value="">—</option>
-              <option>尚未</option>
-              <option>是</option>
-              <option>否</option>
-            </select>
-          </div>
-
-          <div class="span2">
-            <label>備註（文字）</label>
-            <textarea id="noteText" placeholder="可留空"></textarea>
-          </div>
-
-          <div>
-            <label>紀錄人</label>
-            <select id="user">
-              <option value="">—</option>
-              <option>全區-Ken</option>
-              <option>北區-Chris</option>
-              <option>中區-Tania</option>
-              <option>南區-Sonia</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="actions">
-          <button class="primary" id="saveBtn">儲存業務紀錄</button>
-          <button id="resetBtn" type="button">清空</button>
-        </div>
-
-        <div class="status" id="status"></div>
-        <div class="footerHint">提示：手機可「加入主畫面」變成一鍵開啟。</div>
-      </div>
-    </div>
-  </div>
+<div class="status" id="status"></div>
+</div>
+</div>
 
 <script>
-  // 只要改 WEB_APP_URL（TOKEN 你原本就有的話請保留同一組）
-  const WEB_APP_URL = "PASTE_YOUR_WEB_APP_URL_HERE";
-  const TOKEN = "CHANGE_ME_TO_A_LONG_RANDOM_TOKEN";
+const WEB_APP_URL = "PASTE_YOUR_WEB_APP_URL_HERE";
+const TOKEN = "CHANGE_ME_TO_A_LONG_RANDOM_TOKEN";
+const selected = new Set();
 
-  const $ = (id) => document.getElementById(id);
-  const statusEl = $("status");
+async function loadProducts(){
+  const res = await fetch(WEB_APP_URL+"?action=products");
+  const list = await res.json();
+  const wrap = document.getElementById("productTags");
+  wrap.innerHTML="";
 
-  function setStatus(msg, type) {
-    statusEl.textContent = msg || "";
-    statusEl.className = "status " + (type || "");
-  }
-
-  function getValue(id) {
-    const el = $(id);
-    if (!el) return "";
-    return (el.value ?? "").toString().trim();
-  }
-
-  function getSelectedProducts() {
-    const sel = $("product");
-    const picked = Array.from(sel.selectedOptions).map(o => (o.value || o.text).trim()).filter(Boolean);
-
-    // 如果選到「其他」，就把手寫內容也加進去
-    const hasOther = picked.includes("__other__");
-    const cleaned = picked.filter(x => x !== "__other__");
-
-    if (hasOther) {
-      const other = getValue("otherProduct");
-      if (other) {
-        // 支援使用逗號分隔多筆
-        other.split(",").map(s => s.trim()).filter(Boolean).forEach(x => cleaned.push(x));
-      }
-    }
-    return cleaned;
-  }
-
-  function toggleOtherProduct() {
-    const selected = Array.from($("product").selectedOptions).map(o => (o.value || o.text));
-    const show = selected.includes("__other__");
-    $("otherProductWrap").style.display = show ? "block" : "none";
-    if (!show) $("otherProduct").value = "";
-  }
-
-  async function save() {
-    // 全部非必填：不做 validate
-    const products = getSelectedProducts();
-
-    const payload = {
-      token: TOKEN,
-      clientName: getValue("clientName"),
-      contactName: getValue("contactName"),
-      title: getValue("title"),
-      phone: getValue("phone"),
-      area: getValue("area"),
-
-      // 教材改可複選：用逗號串起來存一格（你也可改成陣列，但 Apps Script 目前是存單一欄位）
-      product: products.join(", "),
-
-      level: getValue("level"),
-      qty: getValue("qty"),
-      sampleStatus: getValue("sampleStatus"),
-      salesStage: getValue("salesStage"),
-      nextFollowUp: getValue("nextFollowUp"),
-      dealStatus: getValue("dealStatus"),
-      note: $("noteText").value.trim(),
-      user: getValue("user")
-      // 來源欄位已刪除：不再傳 source
+  list.forEach(name=>{
+    const s=document.createElement("span");
+    s.className="tag";
+    s.textContent=name;
+    s.onclick=()=>{
+      s.classList.toggle("active");
+      s.classList.contains("active")?selected.add(name):selected.delete(name);
     };
+    wrap.appendChild(s);
+  });
 
-    setStatus("儲存中…");
+  const other=document.createElement("span");
+  other.className="tag other";
+  other.textContent="其他";
+  other.onclick=()=>{
+    other.classList.toggle("active");
+    document.getElementById("otherWrap").style.display=
+      other.classList.contains("active")?"block":"none";
+  };
+  wrap.appendChild(other);
+}
 
-    try {
-      const res = await fetch(WEB_APP_URL, {
-        method: "POST",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify(payload)
-      });
+function getProducts(){
+  let arr=[...selected];
+  const other=document.getElementById("otherProduct").value;
+  if(other) other.split(",").map(s=>s.trim()).forEach(x=>arr.push(x));
+  return arr.join(", ");
+}
 
-      const data = await res.json().catch(() => ({}));
+async function save(){
+  const payload={
+    token:TOKEN,
+    clientName:clientName.value,
+    contactName:contactName.value,
+    title:title.value,
+    phone:phone.value,
+    area:area.value,
+    product:getProducts(),
+    note:note.value,
+    user:user.value
+  };
 
-      if (data && data.ok) {
-        setStatus("已儲存", "ok");
-      } else {
-        setStatus("儲存失敗：" + (data.error || "Unknown error"), "err");
-      }
-    } catch (e) {
-      setStatus("連線失敗：" + String(e), "err");
-    }
-  }
+  status.textContent="儲存中…";
 
-  function resetForm() {
-    [
-      "clientName","contactName","title","phone","area","level","qty",
-      "sampleStatus","salesStage","nextFollowUp","dealStatus","noteText","user","otherProduct"
-    ].forEach(id => { if ($(id)) $(id).value = ""; });
+  const r=await fetch(WEB_APP_URL,{method:"POST",body:JSON.stringify(payload)});
+  const d=await r.json();
+  status.textContent=d.ok?"已儲存":"儲存失敗";
+}
 
-    // multi-select 清空
-    const sel = $("product");
-    Array.from(sel.options).forEach(o => o.selected = false);
+function resetForm(){
+  document.querySelectorAll("input,textarea,select").forEach(e=>e.value="");
+  document.querySelectorAll(".tag").forEach(t=>t.classList.remove("active"));
+  selected.clear();
+  otherWrap.style.display="none";
+  status.textContent="";
+}
 
-    $("otherProductWrap").style.display = "none";
-    setStatus("");
-  }
-
-  $("saveBtn").addEventListener("click", (e) => { e.preventDefault(); save(); });
-  $("resetBtn").addEventListener("click", () => resetForm());
+loadProducts();
 </script>
 </body>
 </html>

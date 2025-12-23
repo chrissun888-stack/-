@@ -9,41 +9,38 @@
 body{
   margin:0;
   font-family: system-ui, -apple-system, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
-  background: linear-gradient(180deg,#F5F8FF,#EEF3FF);
+  background:#F4F7FF;
   color:#1F2A44;
 }
-.wrap{max-width:960px;margin:auto;padding:20px;}
+.wrap{max-width:900px;margin:auto;padding:20px}
 .card{
   background:#fff;
-  border-radius:16px;
-  box-shadow:0 18px 40px rgba(0,0,0,.1);
-  padding:20px;
+  border-radius:14px;
+  box-shadow:0 16px 32px rgba(0,0,0,.12);
+  padding:20px
 }
-.grid{display:grid;grid-template-columns:1fr;gap:14px;}
+.grid{display:grid;grid-template-columns:1fr;gap:14px}
 @media(min-width:760px){.grid{grid-template-columns:1fr 1fr}.span2{grid-column:1/-1}}
-label{font-size:13px;color:#6B7AA8;margin-bottom:6px;display:block}
+label{font-size:13px;color:#6B7AA8}
 input,select,textarea{
-  width:100%;padding:12px;border-radius:12px;border:1px solid #D6DEFF;font-size:15px
+  width:100%;padding:12px;border-radius:10px;
+  border:1px solid #D6DEFF;font-size:15px
 }
-textarea{min-height:110px}
+textarea{min-height:100px}
 button{
-  padding:12px;border-radius:12px;border:none;font-size:15px;cursor:pointer
+  padding:12px;border-radius:10px;border:none;
+  background:#4F7CFF;color:#fff;font-size:15px
 }
-.primary{background:#4F7CFF;color:#fff}
-.actions{display:flex;gap:12px;margin-top:18px}
-.status{margin-top:12px;font-size:13px;color:#6B7AA8}
-
-/* tags */
+.actions{margin-top:16px}
 .tagWrap{display:flex;flex-wrap:wrap;gap:8px}
 .tag{
-  padding:8px 12px;
-  border-radius:999px;
-  background:#EEF3FF;
-  border:1px solid #C9D6FF;
-  cursor:pointer;
+  padding:6px 12px;border-radius:999px;
+  background:#EEF3FF;border:1px solid #C9D6FF;
+  cursor:pointer
 }
-.tag.active{background:#4F7CFF;color:#fff;border-color:#4F7CFF}
+.tag.active{background:#4F7CFF;color:#fff}
 .tag.other{border-style:dashed}
+.status{margin-top:10px;font-size:13px;color:#6B7AA8}
 </style>
 </head>
 
@@ -121,8 +118,7 @@ button{
 </div>
 
 <div class="actions">
-<button class="primary" onclick="save()">儲存</button>
-<button onclick="resetForm()">清空</button>
+<button onclick="save()">儲存</button>
 </div>
 
 <div class="status" id="status"></div>
@@ -130,25 +126,24 @@ button{
 </div>
 
 <script>
-https://script.google.com/macros/s/AKfycbwX3w1wTDWqzRJohPrYDg5lYR-M4ONOnn0SxEkEOOyvNijsxFvRCj1yfBtmvlfILtqSgQ/exec;
-const TOKEN = "CHANGE_ME_TO_A_LONG_RANDOM_TOKEN";
+const WEB_APP_URL = https://script.google.com/macros/s/AKfycbxh15oSqKm9c_zsLZLWXyuacHZm0p5wB8DKEp47FBRRRhZ71Ngi-U8kITNULTYCOUBNiA/exec;
 const selected = new Set();
 
 async function loadProducts(){
-  const res = await fetch(WEB_APP_URL+"?action=products");
+  const res = await fetch(WEB_APP_URL + "?action=products");
   const list = await res.json();
   const wrap = document.getElementById("productTags");
-  wrap.innerHTML="";
+  wrap.innerHTML = "";
 
   list.forEach(name=>{
-    const s=document.createElement("span");
-    s.className="tag";
-    s.textContent=name;
-    s.onclick=()=>{
-      s.classList.toggle("active");
-      s.classList.contains("active")?selected.add(name):selected.delete(name);
+    const t=document.createElement("span");
+    t.className="tag";
+    t.textContent=name;
+    t.onclick=()=>{
+      t.classList.toggle("active");
+      t.classList.contains("active") ? selected.add(name) : selected.delete(name);
     };
-    wrap.appendChild(s);
+    wrap.appendChild(t);
   });
 
   const other=document.createElement("span");
@@ -165,13 +160,12 @@ async function loadProducts(){
 function getProducts(){
   let arr=[...selected];
   const other=document.getElementById("otherProduct").value;
-  if(other) other.split(",").map(s=>s.trim()).forEach(x=>arr.push(x));
+  if(other) other.split(",").forEach(x=>arr.push(x.trim()));
   return arr.join(", ");
 }
 
 async function save(){
   const payload={
-    token:TOKEN,
     clientName:clientName.value,
     contactName:contactName.value,
     title:title.value,
@@ -183,18 +177,9 @@ async function save(){
   };
 
   status.textContent="儲存中…";
-
   const r=await fetch(WEB_APP_URL,{method:"POST",body:JSON.stringify(payload)});
   const d=await r.json();
   status.textContent=d.ok?"已儲存":"儲存失敗";
-}
-
-function resetForm(){
-  document.querySelectorAll("input,textarea,select").forEach(e=>e.value="");
-  document.querySelectorAll(".tag").forEach(t=>t.classList.remove("active"));
-  selected.clear();
-  otherWrap.style.display="none";
-  status.textContent="";
 }
 
 loadProducts();

@@ -3,69 +3,324 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>教材同步測試</title>
+<title>樣書 / 業務快速紀錄</title>
 
 <style>
-body{
-  font-family: system-ui, -apple-system, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
-  background:#f4f7ff;
-  padding:20px;
-}
-h2{margin-top:0}
-.tag{
-  display:inline-block;
-  padding:6px 12px;
-  margin:4px;
-  border-radius:999px;
-  background:#4F7CFF;
-  color:#fff;
-  font-size:14px;
-}
-.error{
-  color:#c00;
-  margin-top:12px;
-}
+  :root{
+    --bg:#F5F8FF;
+    --bg2:#EEF3FF;
+    --card: rgba(255,255,255,.80);
+    --border: rgba(20,40,120,.12);
+    --text:#1F2A44;
+    --muted:#6B7AA8;
+    --accent:#4F7CFF;
+    --accent2:#7AA7FF;
+    --shadow: 0 18px 40px rgba(31,42,68,.12);
+    --radius: 16px;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0;
+    font-family: system-ui, -apple-system, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    color:var(--text);
+    background:
+      radial-gradient(1200px 600px at 20% 10%, #E6EEFF, transparent 60%),
+      radial-gradient(1000px 520px at 80% 20%, #EAF1FF, transparent 55%),
+      linear-gradient(180deg, var(--bg), var(--bg2));
+    min-height:100vh;
+  }
+  .wrap{ max-width: 980px; margin: 0 auto; padding: 20px; }
+  .top{ display:flex; align-items:flex-end; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+  h1{ margin:0; font-size:20px; letter-spacing:.2px; }
+  .sub{ margin-top:6px; font-size:13px; color:var(--muted); }
+
+  .card{
+    margin-top:16px;
+    background: var(--card);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  .content{ padding: 18px; }
+
+  .grid{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  @media (min-width: 760px){
+    .grid{ grid-template-columns: 1fr 1fr; }
+    .span2{ grid-column: 1 / -1; }
+  }
+
+  label{ display:block; font-size:13px; color:var(--muted); margin-bottom:6px; }
+  input, select, textarea{
+    width:100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: #FFFFFF;
+    color: var(--text);
+    font-size:15px;
+    transition: all .15s ease;
+  }
+  input::placeholder, textarea::placeholder{ color:#9AA7CC; }
+  input:focus, select:focus, textarea:focus{
+    outline:none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(79,124,255,.15);
+  }
+  textarea{ min-height:110px; resize:vertical; }
+
+  .tagWrap{ display:flex; flex-wrap:wrap; gap:8px; }
+  .tag{
+    padding:8px 12px;
+    border-radius:999px;
+    font-size:13px;
+    background:#F2F5FF;
+    border:1px solid rgba(79,124,255,.25);
+    color:#2F4B9A;
+    cursor:pointer;
+    user-select:none;
+    transition:all .15s ease;
+  }
+  .tag:hover{ background:#E8EEFF; }
+  .tag.active{
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    color:#FFFFFF;
+    border-color: transparent;
+  }
+  .tag.other{ border-style:dashed; }
+  .help{ margin-top:6px; font-size:12px; color:#7E8AB8; }
+
+  .actions{
+    display:flex;
+    gap:12px;
+    margin-top:18px;
+  }
+  button{
+    flex:1;
+    padding:12px 16px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background:#FFFFFF;
+    font-size:15px;
+    cursor:pointer;
+    transition: all .15s ease;
+  }
+  button:hover{
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(31,42,68,.12);
+  }
+  .primary{
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    color:#FFFFFF;
+    border:none;
+  }
+
+  .status{ margin-top:12px; font-size:13px; color: var(--muted); }
+  .ok{ color:#2FBF71; }
+  .err{ color:#E5533D; }
 </style>
 </head>
 
 <body>
+<div class="wrap">
+  <div class="top">
+    <div>
+      <h1>樣書 / 業務快速紀錄</h1>
+      <div class="sub">教材自動同步 · 全部欄位非必填</div>
+    </div>
+  </div>
 
-<h2>教材同步測試頁</h2>
+  <div class="card">
+    <div class="content">
+      <div class="grid">
 
-<div id="productTags">載入中…</div>
-<div id="error" class="error"></div>
+        <div>
+          <label>客戶名稱</label>
+          <input id="clientName" placeholder="例如：XX兒童美語">
+        </div>
+
+        <div>
+          <label>聯絡人</label>
+          <input id="contactName" placeholder="例如：王老師">
+        </div>
+
+        <div>
+          <label>職稱</label>
+          <select id="title">
+            <option value="">—</option>
+            <option>主任</option>
+            <option>老師</option>
+            <option>負責人/老闆</option>
+            <option>行政</option>
+            <option>採購</option>
+          </select>
+        </div>
+
+        <div>
+          <label>電話</label>
+          <input id="phone" placeholder="例如：09xx-xxx-xxx">
+        </div>
+
+        <div>
+          <label>區域</label>
+          <select id="area">
+            <option value="">—</option>
+            <option>北區</option>
+            <option>中區</option>
+            <option>南區</option>
+            <option>全區</option>
+          </select>
+        </div>
+
+        <div>
+          <label>紀錄人</label>
+          <select id="user">
+            <option value="">—</option>
+            <option>全區-Ken</option>
+            <option>北區-Chris</option>
+            <option>中區-Tania</option>
+            <option>南區-Sonia</option>
+          </select>
+        </div>
+
+        <div class="span2">
+          <label>教材名稱（可複選，會自動同步）</label>
+          <div id="productTags" class="tagWrap">載入中…</div>
+          <div class="help">點一下選取，再點一次取消。選「其他」後可手寫輸入。</div>
+        </div>
+
+        <div id="otherWrap" class="span2" style="display:none;">
+          <label>其他教材（可用逗號分隔）</label>
+          <input id="otherProduct" placeholder="例如：Phonics Monster, XReading">
+        </div>
+
+        <div class="span2">
+          <label>備註（文字）</label>
+          <textarea id="note" placeholder="例如：已提供試閱，約下週回訪…"></textarea>
+        </div>
+
+      </div>
+
+      <div class="actions">
+        <button class="primary" id="saveBtn">儲存</button>
+        <button id="resetBtn">清空</button>
+      </div>
+
+      <div class="status" id="status"></div>
+    </div>
+  </div>
+</div>
 
 <script>
-/* 🔴 請只改這一行 */
+/* ✅ 你的新部署網址（到 /exec 為止） */
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzt-cDgQkJdPNHfoCco4ADUf84QLFo1XJl0hpRQ4HlWJYUtzaYSVcrFzNlG5Q58XceJKw/exec";
+
+const selected = new Set();
+
+function setStatus(msg, type){
+  const el = document.getElementById("status");
+  el.className = "status " + (type || "");
+  el.textContent = msg || "";
+}
 
 async function loadProducts(){
   try{
-const res = await fetch(WEB_APP_URL + "?action=products&redirect=false");
+    // ✅ redirect=false：避免 GitHub Pages fetch 被轉址/CORS 擋住
+    const res = await fetch(WEB_APP_URL + "?action=products&redirect=false");
     const data = await res.json();
 
     const wrap = document.getElementById("productTags");
     wrap.innerHTML = "";
 
-    if (!Array.isArray(data) || data.length === 0) {
+    if (!Array.isArray(data) || data.length === 0){
       wrap.textContent = "沒有讀到教材資料";
       return;
     }
 
     data.forEach(name=>{
-      const span = document.createElement("span");
-      span.className = "tag";
-      span.textContent = name;
-      wrap.appendChild(span);
+      const t = document.createElement("span");
+      t.className = "tag";
+      t.textContent = name;
+      t.onclick = ()=>{
+        t.classList.toggle("active");
+        t.classList.contains("active") ? selected.add(name) : selected.delete(name);
+      };
+      wrap.appendChild(t);
     });
+
+    // 其他
+    const other = document.createElement("span");
+    other.className = "tag other";
+    other.textContent = "其他";
+    other.onclick = ()=>{
+      other.classList.toggle("active");
+      const show = other.classList.contains("active");
+      document.getElementById("otherWrap").style.display = show ? "block" : "none";
+      if (!show) document.getElementById("otherProduct").value = "";
+    };
+    wrap.appendChild(other);
+
   }catch(err){
-    document.getElementById("error").textContent =
-      "讀取失敗：" + err.message;
+    document.getElementById("productTags").textContent = "載入失敗";
+    setStatus("讀取教材失敗：" + err.message, "err");
   }
 }
 
+function getProducts(){
+  const arr = [...selected];
+  const other = document.getElementById("otherProduct").value.trim();
+  if (other){
+    other.split(",").map(s=>s.trim()).filter(Boolean).forEach(x=>arr.push(x));
+  }
+  return arr.join(", ");
+}
+
+async function save(){
+  const payload = {
+    clientName: document.getElementById("clientName").value,
+    contactName: document.getElementById("contactName").value,
+    title: document.getElementById("title").value,
+    phone: document.getElementById("phone").value,
+    area: document.getElementById("area").value,
+    user: document.getElementById("user").value,
+    product: getProducts(),
+    note: document.getElementById("note").value
+  };
+
+  setStatus("儲存中…");
+
+  try{
+    const r = await fetch(WEB_APP_URL, {
+      method: "POST",
+      body: JSON.stringify(payload)
+    });
+    const d = await r.json();
+    if (d && d.ok){
+      setStatus("已儲存", "ok");
+    } else {
+      setStatus("儲存失敗", "err");
+    }
+  }catch(err){
+    setStatus("連線失敗：" + err.message, "err");
+  }
+}
+
+function resetForm(){
+  document.querySelectorAll("input, textarea, select").forEach(el=>el.value="");
+  document.querySelectorAll(".tag").forEach(t=>t.classList.remove("active"));
+  selected.clear();
+  document.getElementById("otherWrap").style.display = "none";
+  setStatus("");
+}
+
+document.getElementById("saveBtn").onclick = (e)=>{ e.preventDefault(); save(); };
+document.getElementById("resetBtn").onclick = (e)=>{ e.preventDefault(); resetForm(); };
+
 loadProducts();
 </script>
-
 </body>
 </html>

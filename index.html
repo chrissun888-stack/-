@@ -70,25 +70,120 @@
           </select>
         </div>
         <div>
-          <label>教材名稱 <span class="req">*</span></label>
-          <select id="product" required>
-            <option value="">請選擇</option>
-            <option>Phonics Monster 3rd</option>
-            <option>（其他）</option>
-          </select>
+       <label>教材名稱 *</label>
+<select id="product" required onchange="toggleOtherProduct()">
+  <option value="">請選擇</option>
+
+  <option>1200 Key English Words</option>
+  <option>4500 Key English Words</option>
+  <option>7200 Key English Words</option>
+  <option>Ahead with Starters/Movers/Flyer/FCE</option>
+  <option>ALEKS</option>
+  <option>Benchmark Advance</option>
+  <option>Benchmark Englsih</option>
+  <option>Building / Developing / Matering TOEIC Skills</option>
+  <option>Business Partner</option>
+  <option>Business Survival</option>
+  <option>Chatterbox Kids</option>
+  <option>Early Listeners</option>
+  <option>Early Writers</option>
+  <option>Easy First Reading</option>
+  <option>Easy Fun Facts</option>
+  <option>Easy Fun Reading</option>
+  <option>Easy Speaking for Speeches</option>
+  <option>English Central</option>
+  <option>ELI Board Games: Around The City / Play for Planet</option>
+  <option>ELI Liberty Step Reader</option>
+  <option>Eli Ready for A2/B1/B2 for School</option>
+  <option>English with Games and Activities</option>
+  <option>Focus on Grammar</option>
+  <option>Fun Facts</option>
+  <option>Fun Reading</option>
+  <option>Future Jobs Reader</option>
+  <option>Good Listeners</option>
+  <option>Good Writers</option>
+  <option>Grammar Goals</option>
+  <option>Guided Reading</option>
+  <option>Happy Grammar</option>
+  <option>Hide and Seek</option>
+  <option>Imagine</option>
+  <option>IMPACT (Social Studies)</option>
+  <option>Innova</option>
+  <option>Inspire Science</option>
+  <option>Longman Academic Reading</option>
+  <option>Longman Academic Writing</option>
+  <option>LOOK</option>
+  <option>Look and See</option>
+  <option>Market Leader</option>
+  <option>Mastering Key English Vocabulary</option>
+  <option>My First Steps to Phonics</option>
+  <option>My Math</option>
+  <option>My Phonics</option>
+  <option>Open Court Reading</option>
+  <option>Open Day</option>
+  <option>OPT/YLPT</option>
+  <option>Pathway to Grammar</option>
+  <option>Pathways 3/e</option>
+  <option>Pathways: Reading 3/e</option>
+  <option>Pearson Benchmark / Level</option>
+  <option>Pearson English Reader</option>
+  <option>PET Buster</option>
+  <option>Phonics Fun</option>
+  <option>PM Writing</option>
+  <option>PM+</option>
+  <option>Ready Readers</option>
+  <option>Reveal Math</option>
+  <option>Richmond Practice Test A2 / B1</option>
+  <option>Richmond Reader</option>
+  <option>Richmond YLE</option>
+  <option>Smart Listeners</option>
+  <option>Smart Writers</option>
+  <option>Speaking for Speeches 2/e</option>
+  <option>SRA Reading Labtory</option>
+  <option>Start! /Move! / Fast!</option>
+  <option>Success with new TOEIC test</option>
+  <option>Sunshine Online ELT</option>
+  <option>Target - KET / PET</option>
+  <option>The Complete GEPT Practice Test</option>
+  <option>The Complete TOEIC practice test</option>
+  <option>Timed Reading for Fluency</option>
+  <option>Top Kids</option>
+  <option>Top Phonics</option>
+  <option>Top Phonics Reader</option>
+  <option>True Stories silver edition</option>
+  <option>Viewpoints</option>
+  <option>Working English</option>
+  <option>World History Reader</option>
+  <option>World Windows</option>
+  <option>Writing Success</option>
+  <option>Writing Time</option>
+  <option>Xreading</option>
+
+  <option value="__other__">其他（自行輸入）</option>
+</select>
+
+<div id="otherProductWrap" style="display:none; margin-top:8px;">
+  <label>其他教材名稱 *</label>
+  <input id="otherProduct" type="text" placeholder="請手動輸入教材名稱" />
+</div>
+
+
+
         </div>
 
         <div>
-          <label>冊別/級數</label>
-          <select id="level">
-            <option value="">—</option>
-            <option>Starter</option>
-            <option>Book 1</option>
-            <option>Book 2</option>
-            <option>Book 3</option>
-            <option>Book 4</option>
-            <option>Teacher's Guide</option>
-          </select>
+         <label>級數</label>
+<select id="level">
+  <option value="">請選擇</option>
+  <option>Starter</option>
+  <option>1</option>
+  <option>2</option>
+  <option>3</option>
+  <option>4</option>
+  <option>5</option>
+  <option>6</option>
+</select>
+
         </div>
         <div>
           <label>樣書數量 <span class="req">*</span></label>
@@ -132,9 +227,24 @@
         </div>
 
         <div class="row2">
-          <label>備註</label>
-          <textarea id="note" placeholder="例如：下週安排試教；要看教材內容對照表"></textarea>
-        </div>
+       <label>備註方式</label>
+<select id="noteType" onchange="toggleNoteType()">
+  <option value="text">文字輸入</option>
+  <option value="voice">錄音</option>
+</select>
+
+<div id="noteTextWrap" style="margin-top:8px;">
+  <label>文字備註</label>
+  <textarea id="noteText" placeholder="請輸入備註內容"></textarea>
+</div>
+
+<div id="noteVoiceWrap" style="display:none; margin-top:8px;">
+  <label>語音備註</label>
+  <button type="button" onclick="startRecording()">開始錄音</button>
+  <button type="button" onclick="stopRecording()">停止</button>
+  <audio id="audioPreview" controls style="display:none; margin-top:8px;"></audio>
+</div>
+
 
         <div>
           <label>紀錄人</label>
@@ -157,6 +267,22 @@
   </div>
 
 <script>
+function toggleOtherProduct() {
+  const productSelect = document.getElementById("product");
+  const otherWrap = document.getElementById("otherProductWrap");
+  const otherInput = document.getElementById("otherProduct");
+
+  if (productSelect.value === "__other__") {
+    otherWrap.style.display = "block";
+    otherInput.required = true;
+  } else {
+    otherWrap.style.display = "none";
+    otherInput.required = false;
+    otherInput.value = "";
+  }
+}
+</script>
+
   // 只要改這兩個
   const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyB0QPMnj0PHWSNrvoIoYoQ4xDkfZU9lUnHnAHgh2fP3tGlEmwIZL2DZ3YVSgC5ZwhyAQ/exec";
   const TOKEN = "u-sVlrZ8qnwXbzlGE6S8ecfzW_ftq7Cv";
@@ -192,14 +318,21 @@
       title: getValue("title"),
       phone: getValue("phone"),
       area: getValue("area"),
-      product: getValue("product"),
+      product:
+  getValue("product") === "__other__"
+    ? getValue("otherProduct")
+    : getValue("product"),
       level: getValue("level"),
       qty: getValue("qty"),
       sampleStatus: getValue("sampleStatus"),
       salesStage: getValue("salesStage"),
       nextFollowUp: getValue("nextFollowUp"),
       dealStatus: getValue("dealStatus"),
-      note: $("note").value.trim(),
+      note:
+  document.getElementById("noteType").value === "voice"
+    ? audioBase64
+    : document.getElementById("noteText").value.trim(),
+
       user: getValue("user"),
       source: getValue("source") || "HTML"
     };
@@ -234,3 +367,40 @@
 </script>
 </body>
 </html>
+<script>
+let mediaRecorder;
+let audioChunks = [];
+let audioBase64 = "";
+
+function toggleNoteType() {
+  const type = document.getElementById("noteType").value;
+  document.getElementById("noteTextWrap").style.display = type === "text" ? "block" : "none";
+  document.getElementById("noteVoiceWrap").style.display = type === "voice" ? "block" : "none";
+}
+
+async function startRecording() {
+  audioChunks = [];
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  mediaRecorder = new MediaRecorder(stream);
+  mediaRecorder.start();
+
+  mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+  mediaRecorder.onstop = () => {
+    const blob = new Blob(audioChunks, { type: "audio/webm" });
+    const audioURL = URL.createObjectURL(blob);
+    const audio = document.getElementById("audioPreview");
+    audio.src = audioURL;
+    audio.style.display = "block";
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      audioBase64 = reader.result; // base64 存文字
+    };
+    reader.readAsDataURL(blob);
+  };
+}
+
+function stopRecording() {
+  if (mediaRecorder) mediaRecorder.stop();
+}
+</script>

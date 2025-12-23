@@ -3,188 +3,69 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>樣書 / 業務快速紀錄</title>
+<title>教材同步測試</title>
 
 <style>
 body{
-  margin:0;
   font-family: system-ui, -apple-system, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
-  background:#F4F7FF;
-  color:#1F2A44;
+  background:#f4f7ff;
+  padding:20px;
 }
-.wrap{max-width:900px;margin:auto;padding:20px}
-.card{
-  background:#fff;
-  border-radius:14px;
-  box-shadow:0 16px 32px rgba(0,0,0,.12);
-  padding:20px
-}
-.grid{display:grid;grid-template-columns:1fr;gap:14px}
-@media(min-width:760px){.grid{grid-template-columns:1fr 1fr}.span2{grid-column:1/-1}}
-label{font-size:13px;color:#6B7AA8}
-input,select,textarea{
-  width:100%;padding:12px;border-radius:10px;
-  border:1px solid #D6DEFF;font-size:15px
-}
-textarea{min-height:100px}
-button{
-  padding:12px;border-radius:10px;border:none;
-  background:#4F7CFF;color:#fff;font-size:15px
-}
-.actions{margin-top:16px}
-.tagWrap{display:flex;flex-wrap:wrap;gap:8px}
+h2{margin-top:0}
 .tag{
-  padding:6px 12px;border-radius:999px;
-  background:#EEF3FF;border:1px solid #C9D6FF;
-  cursor:pointer
+  display:inline-block;
+  padding:6px 12px;
+  margin:4px;
+  border-radius:999px;
+  background:#4F7CFF;
+  color:#fff;
+  font-size:14px;
 }
-.tag.active{background:#4F7CFF;color:#fff}
-.tag.other{border-style:dashed}
-.status{margin-top:10px;font-size:13px;color:#6B7AA8}
+.error{
+  color:#c00;
+  margin-top:12px;
+}
 </style>
 </head>
 
 <body>
-<div class="wrap">
-<h2>樣書 / 業務快速紀錄</h2>
 
-<div class="card">
-<div class="grid">
+<h2>教材同步測試頁</h2>
 
-<div>
-<label>客戶名稱</label>
-<input id="clientName">
-</div>
-
-<div>
-<label>聯絡人</label>
-<input id="contactName">
-</div>
-
-<div>
-<label>職稱</label>
-<select id="title">
-<option value="">—</option>
-<option>主任</option>
-<option>老師</option>
-<option>負責人/老闆</option>
-<option>行政</option>
-<option>採購</option>
-</select>
-</div>
-
-<div>
-<label>電話</label>
-<input id="phone">
-</div>
-
-<div>
-<label>區域</label>
-<select id="area">
-<option value="">—</option>
-<option>北區</option>
-<option>中區</option>
-<option>南區</option>
-<option>全區</option>
-</select>
-</div>
-
-<div>
-<label>紀錄人</label>
-<select id="user">
-<option value="">—</option>
-<option>全區-Ken</option>
-<option>北區-Chris</option>
-<option>中區-Tania</option>
-<option>南區-Sonia</option>
-</select>
-</div>
-
-<div class="span2">
-<label>教材名稱（自動同步）</label>
-<div id="productTags" class="tagWrap"></div>
-</div>
-
-<div id="otherWrap" class="span2" style="display:none">
-<label>其他教材</label>
-<input id="otherProduct">
-</div>
-
-<div class="span2">
-<label>備註</label>
-<textarea id="note"></textarea>
-</div>
-
-</div>
-
-<div class="actions">
-<button onclick="save()">儲存</button>
-</div>
-
-<div class="status" id="status"></div>
-</div>
-</div>
+<div id="productTags">載入中…</div>
+<div id="error" class="error"></div>
 
 <script>
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyB0QPMnj0PHWSNrvoIoYoQ4xDkfZU9lUnHnAHgh2fP3tGlEmwIZL2DZ3YVSgC5ZwhyAQ/exec";
-
-https://script.google.com/macros/s/AKfycbxh15oSqKm9c_zsLZLWXyuacHZm0p5wB8DKEp47FBRRRhZ71Ngi-U8kITNULTYCOUBNiA/exec;
-const selected = new Set();
+/* 🔴 請只改這一行 */
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzt-cDgQkJdPNHfoCco4ADUf84QLFo1XJl0hpRQ4HlWJYUtzaYSVcrFzNlG5Q58XceJKw/exec";
 
 async function loadProducts(){
-  const res = await fetch(WEB_APP_URL + "?action=products");
-  const list = await res.json();
-  const wrap = document.getElementById("productTags");
-  wrap.innerHTML = "";
+  try{
+    const res = await fetch(WEB_APP_URL + "?action=products");
+    const data = await res.json();
 
-  list.forEach(name=>{
-    const t=document.createElement("span");
-    t.className="tag";
-    t.textContent=name;
-    t.onclick=()=>{
-      t.classList.toggle("active");
-      t.classList.contains("active") ? selected.add(name) : selected.delete(name);
-    };
-    wrap.appendChild(t);
-  });
+    const wrap = document.getElementById("productTags");
+    wrap.innerHTML = "";
 
-  const other=document.createElement("span");
-  other.className="tag other";
-  other.textContent="其他";
-  other.onclick=()=>{
-    other.classList.toggle("active");
-    document.getElementById("otherWrap").style.display=
-      other.classList.contains("active")?"block":"none";
-  };
-  wrap.appendChild(other);
-}
+    if (!Array.isArray(data) || data.length === 0) {
+      wrap.textContent = "沒有讀到教材資料";
+      return;
+    }
 
-function getProducts(){
-  let arr=[...selected];
-  const other=document.getElementById("otherProduct").value;
-  if(other) other.split(",").forEach(x=>arr.push(x.trim()));
-  return arr.join(", ");
-}
-
-async function save(){
-  const payload={
-    clientName:clientName.value,
-    contactName:contactName.value,
-    title:title.value,
-    phone:phone.value,
-    area:area.value,
-    product:getProducts(),
-    note:note.value,
-    user:user.value
-  };
-
-  status.textContent="儲存中…";
-  const r=await fetch(WEB_APP_URL,{method:"POST",body:JSON.stringify(payload)});
-  const d=await r.json();
-  status.textContent=d.ok?"已儲存":"儲存失敗";
+    data.forEach(name=>{
+      const span = document.createElement("span");
+      span.className = "tag";
+      span.textContent = name;
+      wrap.appendChild(span);
+    });
+  }catch(err){
+    document.getElementById("error").textContent =
+      "讀取失敗：" + err.message;
+  }
 }
 
 loadProducts();
 </script>
+
 </body>
 </html>

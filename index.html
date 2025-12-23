@@ -41,7 +41,7 @@ const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzt-cDgQkJdPNHfoCco
 
 async function loadProducts(){
   try{
-    const res = await fetch(WEB_APP_URL + "?action=products");
+const res = await fetch(WEB_APP_URL + "?action=products&redirect=false");
     const data = await res.json();
 
     const wrap = document.getElementById("productTags");

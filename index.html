@@ -6,217 +6,261 @@
 <title>樣書 / 業務快速紀錄</title>
 
 <style>
-  :root{
-    --bg:#F5F8FF;
-    --bg2:#EEF3FF;
-    --card: rgba(255,255,255,.80);
-    --border: rgba(20,40,120,.12);
-    --text:#1F2A44;
-    --muted:#6B7AA8;
-    --accent:#4F7CFF;
-    --accent2:#7AA7FF;
-    --shadow: 0 18px 40px rgba(31,42,68,.12);
-    --radius: 16px;
-  }
-  *{ box-sizing:border-box; }
-  body{
-    margin:0;
-    font-family: system-ui, -apple-system, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
-    color:var(--text);
-    background:
-      radial-gradient(1200px 600px at 20% 10%, #E6EEFF, transparent 60%),
-      radial-gradient(1000px 520px at 80% 20%, #EAF1FF, transparent 55%),
-      linear-gradient(180deg, var(--bg), var(--bg2));
-    min-height:100vh;
-  }
-  .wrap{ max-width: 980px; margin: 0 auto; padding: 20px; }
-  .top{ display:flex; align-items:flex-end; justify-content:space-between; gap:12px; flex-wrap:wrap; }
-  h1{ margin:0; font-size:20px; letter-spacing:.2px; }
-  .sub{ margin-top:6px; font-size:13px; color:var(--muted); }
+:root{
+  --bg:#F5F8FF;
+  --bg2:#EEF3FF;
+  --card:#ffffff;
+  --border:rgba(20,40,120,.12);
+  --text:#1F2A44;
+  --muted:#6B7AA8;
+  --accent:#4F7CFF;
+  --accent2:#7AA7FF;
+  --shadow:0 18px 40px rgba(31,42,68,.12);
+  --radius:16px;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(1200px 600px at 20% 10%, #E6EEFF, transparent 60%),
+    radial-gradient(1000px 520px at 80% 20%, #EAF1FF, transparent 55%),
+    linear-gradient(180deg,var(--bg),var(--bg2));
+}
+.wrap{max-width:980px;margin:auto;padding:20px}
+h1{margin:0;font-size:20px}
+.sub{margin-top:6px;font-size:13px;color:var(--muted)}
 
-  .card{
-    margin-top:16px;
-    background: var(--card);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-  }
-  .content{ padding: 18px; }
+.card{
+  margin-top:16px;
+  background:rgba(255,255,255,.86);
+  backdrop-filter: blur(10px);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:18px;
+}
 
-  .grid{
-    display:grid;
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
-  @media (min-width: 760px){
-    .grid{ grid-template-columns: 1fr 1fr; }
-    .span2{ grid-column: 1 / -1; }
-  }
+.grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:14px;
+}
+@media(min-width:760px){
+  .grid{grid-template-columns:1fr 1fr}
+  .span2{grid-column:1/-1}
+}
 
-  label{ display:block; font-size:13px; color:var(--muted); margin-bottom:6px; }
-  input, select, textarea{
-    width:100%;
-    padding: 12px 14px;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    background: #FFFFFF;
-    color: var(--text);
-    font-size:15px;
-    transition: all .15s ease;
-  }
-  input::placeholder, textarea::placeholder{ color:#9AA7CC; }
-  input:focus, select:focus, textarea:focus{
-    outline:none;
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(79,124,255,.15);
-  }
-  textarea{ min-height:110px; resize:vertical; }
+label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px}
+input,select,textarea{
+  width:100%;
+  padding:12px 14px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:#fff;
+  font-size:15px;
+}
+textarea{min-height:110px;resize:vertical}
 
-  .tagWrap{ display:flex; flex-wrap:wrap; gap:8px; }
-  .tag{
-    padding:8px 12px;
-    border-radius:999px;
-    font-size:13px;
-    background:#F2F5FF;
-    border:1px solid rgba(79,124,255,.25);
-    color:#2F4B9A;
-    cursor:pointer;
-    user-select:none;
-    transition:all .15s ease;
-  }
-  .tag:hover{ background:#E8EEFF; }
-  .tag.active{
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    color:#FFFFFF;
-    border-color: transparent;
-  }
-  .tag.other{ border-style:dashed; }
-  .help{ margin-top:6px; font-size:12px; color:#7E8AB8; }
+/* ===== 分類區塊（可收合） ===== */
+.category{
+  margin-top:14px;
+  border:1px solid rgba(79,124,255,.12);
+  border-radius:14px;
+  background:rgba(246,249,255,.75);
+  overflow:hidden;
+}
+.categoryHeader{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:12px 14px;
+  cursor:pointer;
+  user-select:none;
+}
+.categoryTitle{
+  font-size:14px;
+  color:#2F4B9A;
+  font-weight:700;
+  letter-spacing:.2px;
+}
+.categoryMeta{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:var(--muted);
+  font-size:12px;
+}
+.pill{
+  padding:4px 10px;
+  border-radius:999px;
+  background:#EEF3FF;
+  border:1px solid rgba(79,124,255,.18);
+}
+.chev{
+  width:26px;height:26px;
+  display:grid;place-items:center;
+  border-radius:10px;
+  background:#fff;
+  border:1px solid rgba(79,124,255,.18);
+  transition:transform .15s ease;
+}
+.category.collapsed .chev{ transform: rotate(-90deg); }
+.categoryBody{
+  padding:14px;
+  border-top:1px solid rgba(79,124,255,.12);
+}
+.category.collapsed .categoryBody{ display:none; }
 
-  .actions{
-    display:flex;
-    gap:12px;
-    margin-top:18px;
-  }
-  button{
-    flex:1;
-    padding:12px 16px;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    background:#FFFFFF;
-    font-size:15px;
-    cursor:pointer;
-    transition: all .15s ease;
-  }
-  button:hover{
-    transform: translateY(-1px);
-    box-shadow: 0 8px 18px rgba(31,42,68,.12);
-  }
-  .primary{
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    color:#FFFFFF;
-    border:none;
-  }
+/* ===== 教材卡片牆 ===== */
+.productGrid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+  gap:14px;
+}
+.productCard{
+  padding:16px 12px;
+  border-radius:14px;
+  background:#fff;
+  border:1px solid rgba(79,124,255,.18);
+  box-shadow:0 8px 20px rgba(31,42,68,.08);
+  text-align:center;
+  font-size:14px;
+  cursor:pointer;
+  transition:all .18s ease;
+  user-select:none;
+}
+.productCard:hover{
+  transform:translateY(-2px);
+  box-shadow:0 14px 28px rgba(31,42,68,.14);
+}
+.productCard.active{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#fff;
+  border-color:transparent;
+  box-shadow:0 18px 36px rgba(79,124,255,.35);
+}
 
-  .status{ margin-top:12px; font-size:13px; color: var(--muted); }
-  .ok{ color:#2FBF71; }
-  .err{ color:#E5533D; }
+.help{margin-top:8px;font-size:12px;color:#7E8AB8}
+
+.actions{
+  display:flex;
+  gap:12px;
+  margin-top:18px;
+}
+button{
+  flex:1;
+  padding:12px 16px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:#fff;
+  font-size:15px;
+  cursor:pointer;
+  transition:all .15s ease;
+}
+button:hover{
+  transform:translateY(-1px);
+  box-shadow:0 8px 18px rgba(31,42,68,.12);
+}
+.primary{
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  color:#fff;
+  border:none;
+}
+.status{margin-top:12px;font-size:13px;color:var(--muted)}
+.ok{color:#2FBF71}
+.err{color:#E5533D}
 </style>
 </head>
 
 <body>
 <div class="wrap">
-  <div class="top">
-    <div>
-      <h1>樣書 / 業務快速紀錄</h1>
-      <div class="sub">教材自動同步 · 全部欄位非必填</div>
-    </div>
-  </div>
+  <h1>樣書 / 業務快速紀錄</h1>
+  <div class="sub">分類可收合 · 教材自動同步 · 卡片式複選</div>
 
   <div class="card">
-    <div class="content">
-      <div class="grid">
+    <div class="grid">
 
-        <div>
-          <label>客戶名稱</label>
-          <input id="clientName" placeholder="例如：XX兒童美語">
-        </div>
-
-        <div>
-          <label>聯絡人</label>
-          <input id="contactName" placeholder="例如：王老師">
-        </div>
-
-        <div>
-          <label>職稱</label>
-          <select id="title">
-            <option value="">—</option>
-            <option>主任</option>
-            <option>老師</option>
-            <option>負責人/老闆</option>
-            <option>行政</option>
-            <option>採購</option>
-          </select>
-        </div>
-
-        <div>
-          <label>電話</label>
-          <input id="phone" placeholder="例如：09xx-xxx-xxx">
-        </div>
-
-        <div>
-          <label>區域</label>
-          <select id="area">
-            <option value="">—</option>
-            <option>北區</option>
-            <option>中區</option>
-            <option>南區</option>
-            <option>全區</option>
-          </select>
-        </div>
-
-        <div>
-          <label>紀錄人</label>
-          <select id="user">
-            <option value="">—</option>
-            <option>全區-Ken</option>
-            <option>北區-Chris</option>
-            <option>中區-Tania</option>
-            <option>南區-Sonia</option>
-          </select>
-        </div>
-
-        <div class="span2">
-          <label>教材名稱（可複選，會自動同步）</label>
-          <div id="productTags" class="tagWrap">載入中…</div>
-          <div class="help">點一下選取，再點一次取消。選「其他」後可手寫輸入。</div>
-        </div>
-
-        <div id="otherWrap" class="span2" style="display:none;">
-          <label>其他教材（可用逗號分隔）</label>
-          <input id="otherProduct" placeholder="例如：Phonics Monster, XReading">
-        </div>
-
-        <div class="span2">
-          <label>備註（文字）</label>
-          <textarea id="note" placeholder="例如：已提供試閱，約下週回訪…"></textarea>
-        </div>
-
+      <div>
+        <label>客戶名稱</label>
+        <input id="clientName" placeholder="（非必填）">
       </div>
 
-      <div class="actions">
-        <button class="primary" id="saveBtn">儲存</button>
-        <button id="resetBtn">清空</button>
+      <div>
+        <label>聯絡人</label>
+        <input id="contactName" placeholder="（非必填）">
       </div>
 
-      <div class="status" id="status"></div>
+      <div>
+        <label>職稱</label>
+        <select id="title">
+          <option value="">—（非必填）—</option>
+          <option>主任</option>
+          <option>老師</option>
+          <option>負責人/老闆</option>
+          <option>行政</option>
+          <option>採購</option>
+        </select>
+      </div>
+
+      <div>
+        <label>電話</label>
+        <input id="phone" placeholder="（非必填）">
+      </div>
+
+      <div>
+        <label>區域</label>
+        <select id="area">
+          <option value="">—（非必填）—</option>
+          <option>北區</option>
+          <option>中區</option>
+          <option>南區</option>
+          <option>全區</option>
+        </select>
+      </div>
+
+      <div>
+        <label>紀錄人</label>
+        <select id="user">
+          <option value="">—（非必填）—</option>
+          <option>全區-Ken</option>
+          <option>北區-Chris</option>
+          <option>中區-Tania</option>
+          <option>南區-Sonia</option>
+        </select>
+      </div>
+
+      <div class="span2">
+        <label>教材名稱（依分類顯示，可複選）</label>
+        <div id="productArea">載入中…</div>
+        <div class="help">點教材卡片可選取/取消；點分類標題可收合。</div>
+      </div>
+
+      <div id="otherWrap" class="span2" style="display:none">
+        <label>其他教材（可用逗號分隔）</label>
+        <input id="otherProduct" placeholder="例如：Phonics Monster, XReading">
+      </div>
+
+      <div class="span2">
+        <label>備註（文字）</label>
+        <textarea id="note" placeholder="（非必填）"></textarea>
+      </div>
+
     </div>
+
+    <div class="actions">
+      <button class="primary" id="saveBtn">儲存</button>
+      <button id="resetBtn">清空</button>
+    </div>
+
+    <div class="status" id="status"></div>
   </div>
 </div>
 
 <script>
-/* ✅ 你的新部署網址（到 /exec 為止） */
+/* ✅ 你的 WEB_APP_URL（只到 /exec） */
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzt-cDgQkJdPNHfoCco4ADUf84QLFo1XJl0hpRQ4HlWJYUtzaYSVcrFzNlG5Q58XceJKw/exec";
 
 const selected = new Set();
@@ -227,45 +271,143 @@ function setStatus(msg, type){
   el.textContent = msg || "";
 }
 
+function toggleOther(show){
+  document.getElementById("otherWrap").style.display = show ? "block" : "none";
+  if(!show) document.getElementById("otherProduct").value = "";
+}
+
+function createCategorySection(cat, items){
+  const section = document.createElement("div");
+  section.className = "category";
+
+  const header = document.createElement("div");
+  header.className = "categoryHeader";
+
+  const left = document.createElement("div");
+  left.className = "categoryTitle";
+  left.textContent = cat;
+
+  const right = document.createElement("div");
+  right.className = "categoryMeta";
+
+  const count = document.createElement("div");
+  count.className = "pill";
+  count.textContent = `${items.length} 項`;
+
+  const chev = document.createElement("div");
+  chev.className = "chev";
+  chev.textContent = "›";
+
+  right.appendChild(count);
+  right.appendChild(chev);
+
+  header.appendChild(left);
+  header.appendChild(right);
+
+  header.onclick = () => {
+    section.classList.toggle("collapsed");
+  };
+
+  const body = document.createElement("div");
+  body.className = "categoryBody";
+
+  const grid = document.createElement("div");
+  grid.className = "productGrid";
+
+  items.forEach(name=>{
+    const c = document.createElement("div");
+    c.className = "productCard";
+    c.textContent = name;
+    c.onclick = (ev) => {
+      ev.stopPropagation(); // 避免點卡片觸發收合
+      c.classList.toggle("active");
+      if (c.classList.contains("active")) selected.add(name);
+      else selected.delete(name);
+    };
+    grid.appendChild(c);
+  });
+
+  body.appendChild(grid);
+  section.appendChild(header);
+  section.appendChild(body);
+
+  return section;
+}
+
 async function loadProducts(){
   try{
-    // ✅ redirect=false：避免 GitHub Pages fetch 被轉址/CORS 擋住
     const res = await fetch(WEB_APP_URL + "?action=products&redirect=false");
     const data = await res.json();
 
-    const wrap = document.getElementById("productTags");
-    wrap.innerHTML = "";
+    const area = document.getElementById("productArea");
+    area.innerHTML = "";
 
     if (!Array.isArray(data) || data.length === 0){
-      wrap.textContent = "沒有讀到教材資料";
+      area.textContent = "沒有讀到教材資料";
       return;
     }
 
-    data.forEach(name=>{
-      const t = document.createElement("span");
-      t.className = "tag";
-      t.textContent = name;
-      t.onclick = ()=>{
-        t.classList.toggle("active");
-        t.classList.contains("active") ? selected.add(name) : selected.delete(name);
-      };
-      wrap.appendChild(t);
+    // data: [{name, category}]
+    const grouped = {};
+
+data.forEach(p => {
+  // 防呆：確保每一筆都有 name
+  if (!p || !p.name) return;
+
+  const category =
+    (typeof p.category === "string" && p.category.trim())
+      ? p.category.trim()
+      : "未分類";
+
+  if (!grouped[category]) grouped[category] = [];
+  grouped[category].push(p.name);
+});
+
+
+    Object.keys(grouped).forEach(cat=>{
+      area.appendChild(createCategorySection(cat, grouped[cat]));
     });
 
-    // 其他
-    const other = document.createElement("span");
-    other.className = "tag other";
-    other.textContent = "其他";
-    other.onclick = ()=>{
-      other.classList.toggle("active");
-      const show = other.classList.contains("active");
-      document.getElementById("otherWrap").style.display = show ? "block" : "none";
-      if (!show) document.getElementById("otherProduct").value = "";
+    // 最後加「其他」區塊（手寫）
+    const otherSection = document.createElement("div");
+    otherSection.className = "category";
+
+    const otherHeader = document.createElement("div");
+    otherHeader.className = "categoryHeader";
+    otherHeader.innerHTML = `
+      <div class="categoryTitle">其他</div>
+      <div class="categoryMeta">
+        <div class="pill">手寫輸入</div>
+        <div class="chev">›</div>
+      </div>
+    `;
+    otherHeader.onclick = () => {
+      otherSection.classList.toggle("collapsed");
     };
-    wrap.appendChild(other);
+
+    const otherBody = document.createElement("div");
+    otherBody.className = "categoryBody";
+
+    const otherCard = document.createElement("div");
+    otherCard.className = "productCard";
+    otherCard.textContent = "啟用「其他」輸入";
+    otherCard.onclick = (ev) => {
+      ev.stopPropagation();
+      otherCard.classList.toggle("active");
+      toggleOther(otherCard.classList.contains("active"));
+    };
+
+    const otherGrid = document.createElement("div");
+    otherGrid.className = "productGrid";
+    otherGrid.appendChild(otherCard);
+
+    otherBody.appendChild(otherGrid);
+    otherSection.appendChild(otherHeader);
+    otherSection.appendChild(otherBody);
+    area.appendChild(otherSection);
 
   }catch(err){
-    document.getElementById("productTags").textContent = "載入失敗";
+    document.getElementById("productArea").textContent = "載入失敗";
     setStatus("讀取教材失敗：" + err.message, "err");
   }
 }
@@ -273,52 +415,44 @@ async function loadProducts(){
 function getProducts(){
   const arr = [...selected];
   const other = document.getElementById("otherProduct").value.trim();
-  if (other){
+  if(other){
     other.split(",").map(s=>s.trim()).filter(Boolean).forEach(x=>arr.push(x));
   }
   return arr.join(", ");
 }
 
 async function save(){
+  setStatus("儲存中…");
   const payload = {
-    clientName: document.getElementById("clientName").value,
-    contactName: document.getElementById("contactName").value,
-    title: document.getElementById("title").value,
-    phone: document.getElementById("phone").value,
-    area: document.getElementById("area").value,
-    user: document.getElementById("user").value,
+    clientName: clientName.value,
+    contactName: contactName.value,
+    title: title.value,
+    phone: phone.value,
+    area: area.value,
+    user: user.value,
     product: getProducts(),
-    note: document.getElementById("note").value
+    note: note.value
   };
 
-  setStatus("儲存中…");
-
   try{
-    const r = await fetch(WEB_APP_URL, {
-      method: "POST",
-      body: JSON.stringify(payload)
-    });
+    const r = await fetch(WEB_APP_URL, { method:"POST", body: JSON.stringify(payload) });
     const d = await r.json();
-    if (d && d.ok){
-      setStatus("已儲存", "ok");
-    } else {
-      setStatus("儲存失敗", "err");
-    }
+    setStatus(d.ok ? "已儲存" : "儲存失敗", d.ok ? "ok" : "err");
   }catch(err){
     setStatus("連線失敗：" + err.message, "err");
   }
 }
 
 function resetForm(){
-  document.querySelectorAll("input, textarea, select").forEach(el=>el.value="");
-  document.querySelectorAll(".tag").forEach(t=>t.classList.remove("active"));
+  document.querySelectorAll("input,textarea,select").forEach(el=>el.value="");
+  document.querySelectorAll(".productCard").forEach(c=>c.classList.remove("active"));
   selected.clear();
-  document.getElementById("otherWrap").style.display = "none";
+  toggleOther(false);
   setStatus("");
 }
 
-document.getElementById("saveBtn").onclick = (e)=>{ e.preventDefault(); save(); };
-document.getElementById("resetBtn").onclick = (e)=>{ e.preventDefault(); resetForm(); };
+saveBtn.onclick = (e)=>{ e.preventDefault(); save(); };
+resetBtn.onclick = (e)=>{ e.preventDefault(); resetForm(); };
 
 loadProducts();
 </script>
